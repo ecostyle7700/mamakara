@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ママからあなたへSNS</title>
+</head>
+<body>
+    <h1>ママからあなたへSNS</h1>
+    {% if current_user.is_authenticated %}
+        <p>こんにちは、{{ current_user.username }} さん</p>
+        <form action="{{ url_for('post') }}" method="POST">
+            <textarea name="content" required></textarea>
+            <button type="submit">投稿</button>
+        </form>
+        <a href="{{ url_for('logout') }}">ログアウト</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">ログイン</a> | <a href="{{ url_for('register') }}">新規登録</a>
+    {% endif %}
+
+    <h2>投稿一覧</h2>
+    {% for post, username in posts %}
+    <div>
+        <p><strong>{{ username }}</strong>: {{ post.content }}</p>
+        <p>{{ post.timestamp }}</p>
+    </div>
+    {% endfor %}
+
+</body>
+</html>
