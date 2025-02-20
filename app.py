@@ -99,5 +99,6 @@ def init_db():
     db.create_all()
     print("データベースを作成しました。")
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # Render の環境変数 PORT を取得、なければ 5000 を使用
+    app.run(host="0.0.0.0", port=port)
